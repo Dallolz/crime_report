@@ -1,1 +1,9 @@
 node_modules/
+dist/
+.angular/
+*.db
+*.sqlite
+.env
+.DS_Store
+coverage/
+tmp/
