@@ -76,7 +76,7 @@ class HomeScreen extends ConsumerWidget {
                   width: double.infinity,
                   height: 56,
                   child: FilledButton.icon(
-                    onPressed: () => context.go('/matchmaking'),
+                    onPressed: () => context.go('/find-match'),
                     icon: const Icon(Icons.flash_on),
                     label: const Text(
                       'Trouver un match',
@@ -89,7 +89,7 @@ class HomeScreen extends ConsumerWidget {
                 // Upcoming matches
                 _SectionHeader(
                   title: 'Mes prochains matchs',
-                  onSeeAll: () => context.go('/matchmaking'),
+                  onSeeAll: () => context.go('/find-match'),
                 ),
                 const SizedBox(height: 8),
                 _UpcomingMatchesList(),
@@ -98,7 +98,7 @@ class HomeScreen extends ConsumerWidget {
                 // Nearby matches
                 _SectionHeader(
                   title: 'Matchs à proximité',
-                  onSeeAll: () => context.go('/matchmaking'),
+                  onSeeAll: () => context.go('/find-match'),
                 ),
                 const SizedBox(height: 8),
                 _NearbyMatchesList(),
@@ -178,7 +178,7 @@ class _UpcomingMatchesList extends ConsumerWidget {
               final config = SportConfig.getConfig(sport?['name'] ?? '');
 
               return GestureDetector(
-                onTap: () => context.push('/matchmaking/${m['id']}'),
+                onTap: () => context.push('/match/${m['id']}'),
                 child: Container(
                   width: 200,
                   padding: const EdgeInsets.all(14),
@@ -266,7 +266,7 @@ class _NearbyMatchesList extends ConsumerWidget {
             return Card(
               margin: const EdgeInsets.only(bottom: 8),
               child: ListTile(
-                onTap: () => context.push('/matchmaking/${m['id']}'),
+                onTap: () => context.push('/match/${m['id']}'),
                 leading: CircleAvatar(
                   backgroundColor: config.color.withOpacity(0.2),
                   child: Icon(config.icon, color: config.color),

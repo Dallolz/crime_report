@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 import '../../features/auth/providers/auth_provider.dart';
 import '../../features/auth/screens/login_screen.dart';
@@ -130,6 +131,7 @@ final routerProvider = Provider<GoRouter>((ref) {
       GoRoute(
         path: '/sport-stats/:sportId',
         builder: (context, state) => SportStatsScreen(
+          userId: Supabase.instance.client.auth.currentUser?.id ?? '',
           sportId: int.parse(state.pathParameters['sportId']!),
         ),
       ),

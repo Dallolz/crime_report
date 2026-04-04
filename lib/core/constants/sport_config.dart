@@ -90,5 +90,36 @@ class SportConfig {
 
   static SportConfig? getSport(String name) => sports[name];
 
+  /// Alias for getSport - returns non-null with fallback
+  static SportConfig getConfig(String name) =>
+      sports[name] ??
+      const SportConfig(
+        name: 'unknown',
+        displayName: 'Sport',
+        icon: Icons.sports,
+        color: Color(0xFF9E9E9E),
+        emoji: '🏅',
+      );
+
+  /// Returns SportConfig with id for onboarding grid
+  static List<SportConfigWithId> get sportsWithIds {
+    final entries = sports.entries.toList();
+    return List.generate(
+      entries.length,
+      (i) => SportConfigWithId(id: i + 1, config: entries[i].value),
+    );
+  }
+
   static List<SportConfig> get allSports => sports.values.toList();
+}
+
+class SportConfigWithId {
+  final int id;
+  final SportConfig config;
+  String get name => config.name;
+  String get displayName => config.displayName;
+  IconData get icon => config.icon;
+  Color get color => config.color;
+
+  const SportConfigWithId({required this.id, required this.config});
 }

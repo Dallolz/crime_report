@@ -27,7 +27,7 @@ class ProfileScreen extends ConsumerWidget {
           if (isOwnProfile)
             IconButton(
               icon: const Icon(Icons.edit),
-              onPressed: () => context.push('/profile/edit'),
+              onPressed: () => context.push('/edit-profile'),
             ),
           if (isOwnProfile)
             IconButton(
@@ -160,7 +160,7 @@ class ProfileScreen extends ConsumerWidget {
               ...playerSports.map((ps) => _SportCard(
                     playerSport: ps,
                     onTap: () => context.push(
-                      '/profile/$targetUserId/sport/${ps['sport_id']}',
+                      '/sport-stats/${ps['sport_id']}',
                     ),
                   )),
           ],

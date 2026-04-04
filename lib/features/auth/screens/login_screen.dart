@@ -37,7 +37,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
         email: _emailController.text.trim(),
         password: _passwordController.text,
       );
-      if (mounted) context.go('/home');
+      if (mounted) context.go('/');
     } catch (e) {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
@@ -57,7 +57,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
     try {
       final repo = ref.read(authRepositoryProvider);
       await repo.signInWithGoogle();
-      if (mounted) context.go('/home');
+      if (mounted) context.go('/');
     } catch (e) {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
@@ -77,7 +77,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
     try {
       final repo = ref.read(authRepositoryProvider);
       await repo.signInWithApple();
-      if (mounted) context.go('/home');
+      if (mounted) context.go('/');
     } catch (e) {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(

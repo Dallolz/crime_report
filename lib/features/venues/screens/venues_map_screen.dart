@@ -140,7 +140,7 @@ class _VenuesMapScreenState extends ConsumerState<VenuesMapScreen> {
                         onTap: () {
                           final venueId = venue['id'];
                           if (venueId != null) {
-                            context.push('/venues/$venueId');
+                            context.push('/venue/$venueId');
                           }
                         },
                       );

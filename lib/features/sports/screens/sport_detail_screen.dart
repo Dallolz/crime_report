@@ -27,7 +27,7 @@ class SportDetailScreen extends ConsumerWidget {
             title: Text(sport['display_name'] ?? 'Sport'),
           ),
           floatingActionButton: FloatingActionButton.extended(
-            onPressed: () => context.push('/matchmaking/create?sportId=$sportId'),
+            onPressed: () => context.push('/create-match'),
             icon: const Icon(Icons.add),
             label: const Text('Créer un match'),
           ),
@@ -96,7 +96,7 @@ class SportDetailScreen extends ConsumerWidget {
                                   return Card(
                                     margin: const EdgeInsets.only(bottom: 8),
                                     child: ListTile(
-                                      onTap: () => context.push('/matchmaking/${m['id']}'),
+                                      onTap: () => context.push('/match/${m['id']}'),
                                       title: Text(m['venue_name'] ?? 'Lieu non défini'),
                                       subtitle: Text(m['address'] ?? ''),
                                       trailing: Chip(
@@ -121,9 +121,9 @@ class SportDetailScreen extends ConsumerWidget {
                                   final p = players[i];
                                   final player = p['player'] as Map<String, dynamic>?;
                                   return PlayerCard(
-                                    name: player?['display_name'] ?? player?['username'] ?? 'Joueur',
+                                    displayName: player?['display_name'] ?? player?['username'] ?? 'Joueur',
                                     avatarUrl: player?['avatar_url'],
-                                    elo: p['elo_rating'] ?? 1000,
+                                    eloRating: p['elo_rating'] ?? 1000,
                                     skillLevel: p['skill_level'] ?? 'beginner',
                                     onTap: () {
                                       if (player != null) {
@@ -199,7 +199,7 @@ class _LeaderboardTab extends ConsumerWidget {
                           ),
                     ),
                     onTap: () {
-                      if (player != null) context.push('/profile/${player['id']}');
+                      if (player != null) context.push('/profile/${player['id']}');  // goes to profile/:userId route
                     },
                   ),
                 );

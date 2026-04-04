@@ -18,6 +18,7 @@ class MatchLobbyScreen extends ConsumerStatefulWidget {
 class _MatchLobbyScreenState extends ConsumerState<MatchLobbyScreen>
     with SingleTickerProviderStateMixin {
   RealtimeChannel? _channel;
+  RealtimeChannel? _chatChannel;
   final _messageController = TextEditingController();
   final _messages = <_ChatMessage>[];
   final _scrollController = ScrollController();
@@ -40,6 +41,7 @@ class _MatchLobbyScreenState extends ConsumerState<MatchLobbyScreen>
   @override
   void dispose() {
     _channel?.unsubscribe();
+    _chatChannel?.unsubscribe();
     _messageController.dispose();
     _scrollController.dispose();
     _shimmerController.dispose();
@@ -53,24 +55,25 @@ class _MatchLobbyScreenState extends ConsumerState<MatchLobbyScreen>
       ref.invalidate(matchDetailProvider(widget.matchId));
     });
 
-    // Also subscribe to broadcast for chat messages
-    _channel
-        ?.onBroadcast(
-          event: 'chat',
-          callback: (payload) {
-            if (mounted) {
-              setState(() {
-                _messages.add(_ChatMessage(
-                  userId: payload['user_id'] as String? ?? '',
-                  username: payload['username'] as String? ?? '',
-                  text: payload['text'] as String? ?? '',
-                  timestamp: DateTime.now(),
-                ));
-              });
-              _scrollToBottom();
-            }
-          },
-        );
+    // Also create a broadcast channel for chat messages
+    _chatChannel = Supabase.instance.client.channel('lobby-chat-${widget.matchId}')
+      .onBroadcast(
+        event: 'chat',
+        callback: (payload) {
+          if (mounted) {
+            setState(() {
+              _messages.add(_ChatMessage(
+                userId: payload['user_id'] as String? ?? '',
+                username: payload['username'] as String? ?? '',
+                text: payload['text'] as String? ?? '',
+                timestamp: DateTime.now(),
+              ));
+            });
+            _scrollToBottom();
+          }
+        },
+      )
+      .subscribe();
   }
 
   void _scrollToBottom() {

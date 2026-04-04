@@ -72,7 +72,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
 
       await repo.saveSelectedSports(sportsToSave);
 
-      if (mounted) context.go('/home');
+      if (mounted) context.go('/');
     } catch (e) {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(

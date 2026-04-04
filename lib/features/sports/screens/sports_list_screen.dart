@@ -52,7 +52,7 @@ class SportsListScreen extends ConsumerWidget {
                 color: config.color,
                 format: sport['match_format'] ?? 'individual',
                 teamSize: '${sport['team_size_min']}-${sport['team_size_max']}',
-                onTap: () => context.push('/sports/${sport['id']}'),
+                onTap: () => context.push('/sport/${sport['id']}'),
               );
             },
           ),
