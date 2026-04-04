@@ -163,20 +163,20 @@ class _MatchLobbyScreenState extends ConsumerState<MatchLobbyScreen>
               ),
               const SizedBox(height: 12),
               // Shimmer "waiting" indicator
-              AnimatedBuilder(
-                animation: _shimmerController,
-                builder: (context, child) {
-                  return Opacity(
-                    opacity: 0.4 + 0.6 * _shimmerController.value,
-                    child: Text(
-                      'En attente de joueurs...',
-                      style: theme.textTheme.bodySmall?.copyWith(
-                        fontStyle: FontStyle.italic,
-                        color: theme.colorScheme.primary,
-                      ),
-                    ),
-                  );
-                },
+              FadeTransition(
+                opacity: Tween<double>(begin: 0.4, end: 1.0).animate(
+                  CurvedAnimation(
+                    parent: _shimmerController,
+                    curve: Curves.easeInOut,
+                  ),
+                ),
+                child: Text(
+                  'En attente de joueurs...',
+                  style: theme.textTheme.bodySmall?.copyWith(
+                    fontStyle: FontStyle.italic,
+                    color: theme.colorScheme.primary,
+                  ),
+                ),
               ),
             ],
           ),
